@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Khushi</title>
+<meta name="description" content="A little birthday surprise, made just for you.">
+<meta name="theme-color" content="#fff3f6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#26103b" media="(prefers-color-scheme: dark)">
+
+<!-- Link preview when the URL is shared (WhatsApp, Instagram, iMessage) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Happy Birthday, Khushi ✨">
+<meta property="og:description" content="Khushi, someone has a little surprise for you…">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Birthstone&family=Jost:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <linearGradient id="gBow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff0c8"/><stop offset=".55" stop-color="#f3cd7c"/><stop offset="1" stop-color="#c99236"/>
+    </linearGradient>
+    <linearGradient id="gHeart" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffc6da"/><stop offset=".5" stop-color="#ff7aa6"/><stop offset="1" stop-color="#d63d6c"/>
+    </linearGradient>
+    <linearGradient id="gHeart2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ecdcff"/><stop offset=".5" stop-color="#b48cff"/><stop offset="1" stop-color="#8456d6"/>
+    </linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff3cf"/><stop offset=".5" stop-color="#f3cf86"/><stop offset="1" stop-color="#c58f2e"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="bg" id="bg" aria-hidden="true">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <canvas id="ambient"></canvas>
+</div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="progress" aria-hidden="true"><span id="progress"></span></div>
+
+<div class="sound-ctl" role="group" aria-label="Sound">
+  <button class="icon-btn" id="musicBtn" type="button" aria-pressed="false" aria-label="Background music" title="Play music">
+    <svg class="ic-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    <span class="ic-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  </button>
+  <button class="icon-btn" id="muteBtn" type="button" aria-pressed="false" aria-label="Mute all sound" title="Mute all sound">
+    <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+    <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+  </button>
+</div>
+
+<div class="opener intro" id="opener" role="dialog" aria-modal="true" aria-labelledby="openerTitle">
+  <div class="opener-inner">
+    <div class="gift-stage" aria-hidden="true">
+      <div class="gift-beam"></div>
+      <div class="gift-float">
+        <div class="gift3d" id="gift3d">
+          <div class="g-face g-front"></div><div class="g-face g-back"></div>
+          <div class="g-face g-right"></div><div class="g-face g-left"></div>
+          <div class="g-face g-bottom"></div><div class="g-inside"></div>
+          <div class="g-lid">
+            <div class="l-face l-front"></div><div class="l-face l-back"></div>
+            <div class="l-face l-right"></div><div class="l-face l-left"></div>
+            <div class="l-face l-bottom"></div><div class="l-face l-top"></div>
+            <div class="g-bow">
+              <div class="bow-plane"><svg viewBox="0 0 120 70"><use href="#bowShape"/></svg></div>
+              <div class="bow-plane b2"><svg viewBox="0 0 120 70"><use href="#bowShape"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="gift-shadow"></div>
+    </div>
+    <div class="opener-copy">
+      <p class="opener-title" id="openerTitle"></p>
+      <button class="btn btn-glow" id="openBtn" type="button">Open Your Surprise ❤️</button>
+      <p class="opener-hint">Turn your sound on for a little extra magic</p>
+    </div>
+  </div>
+</div>
+
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <symbol id="bowShape" viewBox="0 0 120 70">
+    <path d="M60 52 C 52 60, 44 66, 36 70 L 44 70 C 52 66, 56 62, 60 56 Z" fill="#d9a441"/>
+    <path d="M60 52 C 68 60, 76 66, 84 70 L 76 70 C 68 66, 64 62, 60 56 Z" fill="#d9a441"/>
+    <path d="M60 54 C 40 18, 4 14, 8 40 C 11 60, 42 60, 60 54 Z" fill="url(#gBow)" stroke="#b5832a" stroke-width="1.2"/>
+    <path d="M60 54 C 80 18, 116 14, 112 40 C 109 60, 78 60, 60 54 Z" fill="url(#gBow)" stroke="#b5832a" stroke-width="1.2"/>
+    <path d="M54 48 C 40 30, 20 24, 16 38" fill="none" stroke="#fff8e0" stroke-width="2.4" stroke-linecap="round" opacity=".7"/>
+    <path d="M66 48 C 80 30, 100 24, 104 38" fill="none" stroke="#fff8e0" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>
+    <ellipse cx="60" cy="53" rx="9.5" ry="8.5" fill="url(#gBow)" stroke="#b5832a" stroke-width="1.2"/>
+  </symbol>
+</svg>
+
+<main id="main" inert>
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <div class="hero-rays" aria-hidden="true"></div>
+    <div class="hero-sky" id="heroSky" aria-hidden="true"></div>
+    <div class="hero-content" id="heroContent">
+      <h1 class="hero-title" id="heroTitle"><span class="hb" id="heroHb" aria-hidden="true">Happy Birthday,</span><span class="hero-name" aria-hidden="true" data-name></span></h1>
+      <p class="hero-sub" id="heroSub"></p>
+      <div class="date-chip glass" id="dateChip" hidden><span class="dc-label"></span><span class="dc-time"></span></div>
+      <div class="date-chip glass" id="togetherChip" hidden><span class="dc-label"></span><span class="dc-time"></span></div>
+      <button class="btn btn-glow" id="celebrateBtn" type="button">Let's Celebrate 🎂</button>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </section>
+
+  <section class="section cake-section" id="wish" aria-labelledby="wishTitle">
+    <div class="wish-veil" aria-hidden="true"></div>
+    <header class="sec-head reveal">
+      <h2 id="wishTitle">Make a wish</h2>
+      <p class="sec-sub">Tap a candle to blow it out, or make a wish and blow them all out at once.</p>
+    </header>
+    <div class="cake-stage reveal" id="cakeStage">
+      <div class="cake-sway">
+        <div class="cake" id="cake">
+          <div class="ly ly-glow"><div class="cake-glow"></div></div>
+          <div class="ly ly-stand"><div class="stand-base"></div><div class="stand-stem"></div><div class="plate-edge"></div><div class="plate"></div></div>
+          <div class="ly ly-tb"><div class="tier tier-b" id="tierB"></div></div>
+          <div class="ly ly-tt"><div class="tier tier-t" id="tierT"></div></div>
+          <div class="ly ly-dback" id="dollopsBack"></div>
+          <div class="ly ly-candles" id="candles" role="group" aria-label="Birthday candles"></div>
+          <div class="ly ly-dfront" id="dollopsFront"></div>
+        </div>
+      </div>
+    </div>
+    <p class="cake-hint" id="cakeHint" aria-live="polite"></p>
+    <div class="cake-actions">
+      <button class="btn btn-glow" id="wishBtn" type="button">Make a Wish ✨</button>
+      <button class="btn btn-ghost" id="relightBtn" type="button" hidden>Light the Candles Again 🕯️</button>
+    </div>
+    <div class="wish-card glass" id="wishCard" hidden>
+      <h3 id="wishCardTitle"></h3>
+      <p id="wishCardText"></p>
+    </div>
+  </section>
+
+  <section class="section" id="lanterns" aria-labelledby="lanTitle">
+    <header class="sec-head reveal">
+      <h2 id="lanTitle">Light a lantern</h2>
+      <p class="sec-sub">Write a wish for your new year and send it floating into the night sky. Tap any lantern to read its wish.</p>
+    </header>
+    <div class="lantern-stage reveal">
+      <div class="lantern-sky" id="lanternSky">
+        <div class="ls-moon" aria-hidden="true"></div>
+        <svg class="ls-hills" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 118C120 62 260 72 380 108S640 58 760 94 920 70 1000 88V200H0Z" fill="#2b1442"/>
+          <path d="M0 158C150 112 300 130 450 150S750 108 1000 142V200H0Z" fill="#180a28"/>
+        </svg>
+        <button class="hidden-star" id="hiddenStar" type="button" aria-label="A tiny hidden star">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l2.9 6.26 6.86.74-5.13 4.62 1.46 6.76L12 16.9l-6.09 3.48 1.46-6.76L2.24 9l6.86-.74z"/></svg>
+        </button>
+      </div>
+      <p class="lantern-read" id="lanternRead" aria-live="polite">Tap a lantern to read its wish.</p>
+      <div class="lantern-form">
+        <label class="sr-only" for="wishInput">Your wish for the year</label>
+        <input id="wishInput" type="text" maxlength="80" placeholder="I wish for…" autocomplete="off" enterkeyhint="send">
+        <button class="btn btn-glow" id="releaseBtn" type="button">Release Lantern 🏮</button>
+      </div>
+      <div class="wish-chips" id="wishChips" aria-label="Wish ideas"></div>
+    </div>
+  </section>
+
+  <section class="section letter-section" id="letter" aria-labelledby="letterTitle">
+    <header class="sec-head reveal">
+      <h2 id="letterTitle">A letter for you</h2>
+      <p class="sec-sub">Some words I saved for today.</p>
+    </header>
+    <div class="envelope-wrap reveal" id="envWrap">
+      <button class="envelope" id="envelope" type="button" aria-label="Open the letter">
+        <span class="env-back"></span>
+        <span class="env-paper"><b>For you</b></span>
+        <span class="env-pocket"><i class="ep-l"></i><i class="ep-r"></i><i class="ep-b"></i></span>
+        <span class="env-flap"></span>
+        <span class="env-seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+      </button>
+      <p class="env-hint">Tap the envelope to open it</p>
+    </div>
+    <article class="letter-card glass" id="letterCard" hidden aria-labelledby="letterTitle">
+      <div class="letter-hearts" id="letterHearts" aria-hidden="true"></div>
+      <div class="letter-paper">
+        <div class="sr-only" id="letterSr"></div>
+        <div aria-hidden="true">
+          <p class="letter-greeting" id="lGreeting"></p>
+          <div class="letter-body" id="lBody"></div>
+          <p class="letter-closing" id="lClosing"></p>
+          <p class="letter-sign" id="lSign"></p>
+        </div>
+      </div>
+      <div class="letter-actions">
+        <button class="btn btn-ghost btn-small" id="skipBtn" type="button">Show the Whole Letter</button>
+        <button class="btn btn-ghost btn-small" id="againBtn" type="button" hidden>Read It Again</button>
+        <button class="btn btn-ghost btn-small" id="foldBtn" type="button" hidden>Fold the Letter</button>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" id="moments" aria-labelledby="momTitle">
+    <header class="sec-head reveal">
+      <h2 id="momTitle">Our little moments</h2>
+      <p class="sec-sub">A few pages from our story so far. Tap a photo to turn it over.</p>
+    </header>
+    <div class="polaroids" id="polaroids"></div>
+    <p class="pol-swipe" aria-hidden="true">Swipe for more →</p>
+  </section>
+
+  <section class="section reasons-section" id="reasons" aria-labelledby="reaTitle">
+    <header class="sec-head reveal">
+      <h2 id="reaTitle">Reasons I adore you</h2>
+      <p class="sec-sub">I could never fit them all in one place, but here are a few. Tap the card to turn it over.</p>
+    </header>
+    <div class="deck reveal">
+      <span class="deck-under" aria-hidden="true"></span><span class="deck-under" aria-hidden="true"></span>
+      <button class="r-card" id="rCard" type="button">
+        <span class="r-inner">
+          <span class="r-face r-front"><span class="r-num" id="rNum"></span><span class="r-tap">Tap to reveal</span></span>
+          <span class="r-face r-back"><span class="r-of" id="rOf"></span><span class="r-text" id="rText"></span></span>
+        </span>
+      </button>
+    </div>
+    <div class="sr-only" id="rLive" aria-live="polite"></div>
+    <p class="r-count" id="rCount"></p>
+    <button class="btn btn-ghost btn-small" id="rNext" type="button">Reveal It 💌</button>
+  </section>
+
+  <section class="section" id="surprises" aria-labelledby="surTitle">
+    <header class="sec-head reveal">
+      <h2 id="surTitle">Little surprises</h2>
+      <p class="sec-sub">A few small things, tucked away just for you.</p>
+    </header>
+    <div class="surprise-grid">
+      <article class="s-card glass reveal">
+        <div class="scratch" id="scratch">
+          <p class="fortune" id="fortune" aria-hidden="true"></p>
+          <canvas id="scratchCanvas" aria-hidden="true"></canvas>
+        </div>
+        <h3>Your birthday fortune</h3>
+        <p id="scratchHint">Scratch the gold foil to see what this year has in store.</p>
+        <button class="btn btn-ghost btn-small" id="scratchBtn" type="button">Just Reveal It ✨</button>
+      </article>
+
+      <article class="s-card glass reveal" style="--d:.1s">
+        <div class="s-art">
+          <div class="love-heart" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#gHeart)"/><ellipse cx="7.6" cy="7.6" rx="2.8" ry="1.7" fill="#fff" opacity=".55" transform="rotate(-35 7.6 7.6)"/></svg>
+          </div>
+        </div>
+        <h3>A shower of love</h3>
+        <p>Press the button and see just how loved you are.</p>
+        <p class="love-count" id="loveCount" aria-live="polite"></p>
+        <button class="btn btn-glow btn-small" id="loveBtn" type="button">Release the Love 💖</button>
+      </article>
+
+      <article class="s-card glass reveal s-star" style="--d:.2s">
+        <div class="s-art">
+          <div class="star-art" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path fill="url(#gGold)" d="M12 2l2.9 6.26 6.86.74-5.13 4.62 1.46 6.76L12 16.9l-6.09 3.48 1.46-6.76L2.24 9l6.86-.74z"/></svg>
+          </div>
+        </div>
+        <h3>A hidden star</h3>
+        <p id="starText">A tiny star is hiding somewhere on this page. Find it to unlock a secret message.</p>
+        <p class="star-tip" id="starTip" aria-live="polite"></p>
+        <button class="btn btn-ghost btn-small" id="starBtn" type="button">Give Me a Hint</button>
+      </article>
+
+      <article class="s-card glass reveal s-wide">
+        <h3>Pop a balloon</h3>
+        <p>Every balloon is carrying a little note. Tap one to pop it.</p>
+        <div class="balloon-sky" id="balloonSky"></div>
+        <p class="balloon-note" id="balloonNote" aria-live="polite"></p>
+      </article>
+
+      <article class="s-card glass reveal s-wide">
+        <h3>Written in the stars</h3>
+        <p id="constHint">Tap the glowing star, then each one after it, to see what the sky has been keeping for you.</p>
+        <div class="const-sky" id="constSky">
+          <p class="const-names" id="constNames" aria-live="polite"></p>
+        </div>
+        <button class="btn btn-ghost btn-small" id="constReset" type="button" hidden>Draw It Again</button>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="coupons" aria-labelledby="couTitle">
+    <header class="sec-head reveal">
+      <h2 id="couTitle">Birthday coupons</h2>
+      <p class="sec-sub">A few little promises, yours to claim whenever you like.</p>
+    </header>
+    <div class="coupons reveal" id="couponGrid"></div>
+    <p class="coupon-note" id="couponNote"></p>
+  </section>
+
+  <section class="section game-section" id="game" aria-labelledby="gameTitle">
+    <header class="sec-head reveal">
+      <h2 id="gameTitle">Catch the hearts</h2>
+      <p class="sec-sub">Slide the jar to catch as many falling hearts as you can. Golden hearts are worth five.</p>
+    </header>
+    <div class="game-wrap reveal">
+      <div class="game glass" id="gameBox">
+        <canvas id="gameCanvas" role="img" aria-label="Falling hearts and a jar to catch them"></canvas>
+        <div class="game-hud"><span id="gScore">0 💗</span><span id="gTime"></span></div>
+        <div class="game-overlay" id="gOverlay">
+          <p class="go-title" id="gTitle"></p>
+          <p class="go-text" id="gText">Drag your finger or move your mouse to slide the jar. Arrow keys work too.</p>
+          <button class="btn btn-glow" id="gStart" type="button">Start Game 💗</button>
+          <p class="go-best" id="gBest"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="finale" id="finale" aria-labelledby="finTitle">
+    <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="finale-content reveal">
+      <h2 class="finale-title" id="finTitle"></h2>
+      <p class="finale-line" id="finLine"></p>
+      <p class="finale-sign"><em id="finClosing"></em><span data-from></span></p>
+      <div class="finale-actions">
+        <button class="btn btn-glow" id="celebrateAgain" type="button">Celebrate Again 🎆</button>
+        <button class="btn btn-ghost" id="restartBtn" type="button">Start Over</button>
+      </div>
+    </div>
+  </section>
+  <footer class="site-foot">Made with love by <span data-from-full></span> for <span data-full></span></footer>
+</main>
+
+<div class="modal" id="secretModal" role="dialog" aria-modal="true" aria-labelledby="secretTitle" hidden>
+  <div class="modal-card">
+    <button class="modal-close" type="button" aria-label="Close" data-close>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <h3 id="secretTitle"></h3>
+    <p id="secretText"></p>
+    <button class="btn btn-glow btn-small" type="button" data-close>Keep It Close ♡</button>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
